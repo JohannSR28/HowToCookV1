@@ -158,6 +158,7 @@ export default function ShowRecipePage({
         toast.success("Recipe updated successfully!");
         setOldFormData(updatedFormData);
         setImageFile(null);
+        window.location.href = `/recipes/${id}/showRecipe`;
       } else {
         toast.error(result?.error || "Failed to update recipe.");
       }
