@@ -1,4 +1,4 @@
-export const darkModeLogo = (
+export const DarkModeLogo = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -15,7 +15,7 @@ export const darkModeLogo = (
   </svg>
 );
 
-export const lightModeLogo = (
+export const LightModeLogo = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="currentColor"
