@@ -1,5 +1,5 @@
 import React from "react";
-import ResponsiveGapAnimation from "../../ResponsiveGapAnimation";
+import RecipeCarousel from "@/components/RecipeCarousel";
 
 export default function PopularRecipes() {
   return (
@@ -8,17 +8,7 @@ export default function PopularRecipes() {
         Nos recettes populaires
       </h2>
 
-      {/* Container with visible overflow to allow the animation to overflow */}
-      <div
-        className="w-full"
-        style={{
-          // Crucial: allows the animation to overflow
-          overflow: "visible",
-          position: "relative",
-        }}
-      >
-        <ResponsiveGapAnimation />
-      </div>
+      <RecipeCarousel speed={40} maxItems={10} />
     </div>
   );
 }

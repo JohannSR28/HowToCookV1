@@ -1,23 +1,31 @@
+"use client";
+
 import { useTheme } from "@/app/context/ThemeContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Recipe } from "@/lib/type/Recipe";
+import type { Recipe } from "@/lib/type/Recipe";
+import { ArrowRight } from "lucide-react";
 
 export default function RecipePreview({ recipe }: { recipe: Recipe }) {
   const { theme } = useTheme();
+  const router = useRouter();
 
   const colorClasses = {
     light: {
-      "recipe-preview-background": "bg-white",
-      "recipe-preview-subtitle": "text-gray-600",
+      background: "bg-transparent",
+      subtitle: "text-gray-600",
+      buttonBg: "rgb(251, 186, 114)",
+      buttonText: "text-white",
+      title: "text-gray-900",
     },
     dark: {
-      "recipe-preview-background": "bg-gray-600",
-      "recipe-preview-subtitle": "text-gray-300",
+      background: "bg-transparent",
+      subtitle: "text-gray-300",
+      buttonBg: "#1f2937",
+      buttonText: "text-white",
+      title: "text-white",
     },
   };
-
-  const router = useRouter();
 
   function handleClick() {
     router.push(`/recipes/${recipe.id}/showRecipe`);
@@ -25,31 +33,39 @@ export default function RecipePreview({ recipe }: { recipe: Recipe }) {
 
   return (
     <div
-      onClick={handleClick}
-      className={`flex flex-col w-full h-full ${colorClasses[theme]["recipe-preview-background"]} rounded-xl shadow-md overflow-hidden p-3 sm:p-4 hover:scale-105 transition-transform duration-300`}
+      className={`w-full aspect-square rounded-xl overflow-hidden relative ${colorClasses[theme].background}`}
     >
       {/* Image */}
-      <div className="relative w-full h-32 sm:h-40 md:h-48 rounded-lg overflow-hidden">
-        <Image
-          src={recipe.image}
-          alt={recipe.title}
-          fill
-          className="object-cover"
-          sizes="(max-width: 640px) 100vw, 50vw"
+      <Image
+        src={recipe.image || "/placeholder.svg"}
+        alt={recipe.title}
+        fill
+        className="object-cover"
+        sizes="100vw"
+      />
+
+      {/* Overlay semi-transparent pour le titre */}
+      <div className="absolute bottom-0 left-0 w-full bg-white/90 dark:bg-gray-800/80 backdrop-blur-sm px-3 py-2 sm:px-4 sm:py-3 flex flex-col items-center">
+        <h3
+          className={`text-center font-semibold text-sm sm:text-base md:text-lg break-words ${colorClasses[theme].title}`}
+        >
+          {recipe.title}
+        </h3>
+        <div
+          className="w-12 sm:w-16 h-0.5 mt-1 sm:mt-2 rounded-full"
+          style={{ backgroundColor: colorClasses[theme].buttonBg }}
         />
       </div>
 
-      {/* Text */}
-      <div className="mt-3 flex flex-col flex-grow items-center justify-center">
-        <h3 className="mt-2 text-base sm:text-lg font-semibold text-center truncate">
-          {recipe.title}
-        </h3>
-        <p
-          className={`${colorClasses[theme]["recipe-preview-subtitle"]} text-center text-xs sm:text-sm line-clamp-2`}
-        >
-          {recipe["sub-title"]}
-        </p>
-      </div>
+      {/* Bouton voir recette */}
+      <button
+        onClick={handleClick}
+        className={`absolute top-2 right-2 sm:top-3 sm:right-3 flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium shadow-md transition ${colorClasses[theme].buttonText}`}
+        style={{ backgroundColor: colorClasses[theme].buttonBg }}
+      >
+        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
+        <span className="hidden sm:inline">Voir la recette complète</span>
+      </button>
     </div>
   );
 }

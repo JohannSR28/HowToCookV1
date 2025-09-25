@@ -69,7 +69,7 @@ export default function AllRecipesPage() {
         </button>
       </div>
 
-      <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 px-4">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4">
         {recipes.map((recipe) => (
           <RecipePreview key={recipe.id} recipe={recipe} />
         ))}
