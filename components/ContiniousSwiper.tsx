@@ -38,9 +38,9 @@ const ContinuousSwiper: React.FC<ContinuousSwiperProps> = ({
     //const containerPadding = 0; // Pas de padding car on occupe toute la largeur
 
     if (screenWidth < 768) {
-      return screenWidth / 1.1; // Mobile → 2.5 slides visibles
+      return screenWidth / 2.5; // Mobile → 2.5 slides visibles
     }
-    return 380; // Desktop → taille fixe
+    return 350; // Desktop → taille fixe
   };
 
   const [slideSize, setSlideSize] = useState<number>(getSlideSize);
